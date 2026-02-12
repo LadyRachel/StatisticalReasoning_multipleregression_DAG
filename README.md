@@ -34,12 +34,24 @@ ways:
 Let’s start by reading in the relevant packages
 
 ``` r
-# Run this to install some data packages
-# devtools::install_github("rmcelreath/rethinking")
-library(rethinking)
-
 library(brms) # for statistics
 library(tidyverse) # for data wrangling
+
+# a function to scale and center. from rethinking package
+standardize <- function(x) {
+    x <- scale(x)
+    z <- as.numeric(x)
+    attr(z,"scaled:center") <- attr(x,"scaled:center")
+    attr(z,"scaled:scale") <- attr(x,"scaled:scale")
+    return(z)
+}
+#BELOW DOESNT WORK
+# Run this to install some data packages
+# devtools::install_github("rmcelreath/rethinking")
+#> THis bit!! library(rethinking)
+
+#library(brms) # for statistics
+#library(tidyverse) # for data wrangling
 ```
 
 # 1. DAG practice
@@ -120,7 +132,9 @@ package. Let’s load in the data:
 
 ``` r
 # Load in the fox data
-data(foxes)
+#data(foxes)
+# Load in the fox data
+foxes <- read.csv('https://raw.githubusercontent.com/rmcelreath/rethinking/refs/heads/master/data/foxes.csv', sep = ';')
 ```
 
 ``` r
